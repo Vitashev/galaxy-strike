@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour
 {
-    [SerializeField] GameObject[] lazerParticles; // Assign your bullet prefabs in the Inspector
+    [SerializeField] GameObject[] laserParticles; // Assign your bullet prefabs in the Inspector
     [SerializeField] RectTransform cursor;
     [SerializeField] Transform targetPoint;
     [SerializeField] float targetDistance = 100f; // Distance from the camera to the target point
@@ -21,7 +21,7 @@ public class PlayerShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateLazerEmission();
+        UpdateLaserEmission();
         UpdateCursorPosition();
         UpdateTargetPointPosition();
         DirectShootingToTargetPoint();
@@ -56,11 +56,11 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
-    private void UpdateLazerEmission()
+    private void UpdateLaserEmission()
     {
-        foreach (GameObject lazer in lazerParticles)
+        foreach (GameObject laser in laserParticles)
         {
-            ParticleSystem ps = lazer.GetComponent<ParticleSystem>();
+            ParticleSystem ps = laser.GetComponent<ParticleSystem>();
             ParticleSystem.EmissionModule emission = ps.emission;
             emission.enabled = isShooting;
         }
@@ -73,17 +73,17 @@ public class PlayerShooting : MonoBehaviour
 
     private void DirectShootingToTargetPoint()
     {
-        // direct lazer particles towards the target point
+        // direct laser particles towards the target point
         if (targetPoint != null)
         {
 
-            foreach (GameObject lazer in lazerParticles)
+            foreach (GameObject laser in laserParticles)
             {
                 Vector3 direction = (targetPoint.position - this.transform.position).normalized;
-                lazer.transform.rotation = Quaternion.LookRotation(direction);
+                laser.transform.rotation = Quaternion.LookRotation(direction);
 
-                // Optionally, you can also set the position of the lazer particles to the target point
-                // lazer.transform.position = targetPoint.position;
+                // Optionally, you can also set the position of the laser particles to the target point
+                // laser.transform.position = targetPoint.position;
             }
         }
         else
